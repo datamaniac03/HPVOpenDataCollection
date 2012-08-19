@@ -6,6 +6,11 @@ Jacson Barros, MSc Jacsonv@ffm.br
 Amrapali Zaver, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
 Ricardo Pietrobon, MD, PhD rpietro@duke.edu
 
+<!---
+Velber and Jose Eduardo, do you guys have institutional email addresses? if so, please add them above
+-->
+
+
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 library(Hmisc)
 library(ggplot2)
