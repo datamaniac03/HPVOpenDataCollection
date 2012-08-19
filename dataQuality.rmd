@@ -1,0 +1,33 @@
+# Data quality report for HPV Open Data Collection Project
+
+Velber Xavier, PhD velberxavier@gmail.com
+Jose Eduardo Santana, MSc candidate eduardosant@gmail.com
+Jacson Barros, MSc Jacsonv@ffm.br
+Amrapali Zaver, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
+Ricardo Pietrobon, MD, PhD rpietro@duke.edu
+
+```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
+library(Hmisc)
+library(ggplot2)
+library(VIM)
+hpv <- read.csv("/Users/rpietro/Google Drive/R/nonpublicdata_publications/HPV/hpv.csv")
+label(hpv$IDADE) <- "age at the time of the first consultation" 
+label(hpv$MENARCA)  <- "age at the time of the first period"
+```
+
+<!---
+Velber, please take the previous line where it says label and then create labels for each one of the variables you have in your data set. please write them in simple Portuguese and then convert them to English using Google translate. please talk with Jose Eduardo if you have any questions
+-->
+
+## Introduction
+The main objective of this report is to provide a 24/7 snapshop at the data quality behind the HPV Open Data Collection Project. This includes not only the original data set collected under Dr. Xavier in Maceio, Brazil, but also any additional data sets brought in from other registries, prospective studies, as well as Linked Open Data sources.
+
+Methodological details about the study can be found at [HPV Open Data Collection Project](site)
+
+Below is a full list of variables along with their class (variable type according to the R language) and alternative responses. Most of the variable names should be intuitive, but a full dictionary is also described below:
+
+```{r, echo=FALSE, warning=FALSE }
+describe(hpv, exclude.missing=FALSE)
+```
+
+vmGUImenu()
