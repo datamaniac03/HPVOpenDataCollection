@@ -1,7 +1,7 @@
 # Data quality report for HPV Open Data Collection Project
 
 Velber Xavier, PhD velberxavier@gmail.com
-Jose Eduardo Santana, MSc candidate eduardosant@gmail.com
+Jose Eduardo Santana, MSc candidate jes@ic.ufal.br
 Jacson Barros, MSc Jacsonv@ffm.br
 Amrapali Zaver, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
 Ricardo Pietrobon, MD, PhD rpietro@duke.edu
