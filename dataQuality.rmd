@@ -1,13 +1,14 @@
-# Data quality report for HPV Open Data Collection Project
+# Data quality and exploratory graphical analysis report for HPV Open Data Collection Project
 
 Velber Xavier, PhD velberxavier@gmail.com
 Jose Eduardo Santana, MSc candidate jes@ic.ufal.br
 Jacson Barros, MSc Jacsonv@ffm.br
-Amrapali Zaver, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
+Joao Ricardo Vissoci, PhD candidate
+Amrapali Zaveri, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
 Ricardo Pietrobon, MD, PhD rpietro@duke.edu
 
 <!---
-Velber and Jose Eduardo, do you guys have institutional email addresses? if so, please add them above
+Velber, Joao and Jose Eduardo, do you guys have institutional email addresses? if so, please add them above
 -->
 
 
@@ -35,4 +36,15 @@ Below is a full list of variables along with their class (variable type accordin
 describe(hpv, exclude.missing=FALSE)
 ```
 
-vmGUImenu()
+A description of missing values is provided in the Figure below, where missing values are presented in yellow.
+```{r}
+library(vmv)
+tablemissing(hpv)
+```
+Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]
+
+
+```{r}
+source("http://www.exploredata.net/ftp/MINE.r")
+MINE("/Users/rpietro/Google Drive/R/nonpublicdata_publications/HPV/hpv.csv","all.pairs")
+```

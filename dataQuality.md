@@ -6,6 +6,11 @@ Jacson Barros, MSc Jacsonv@ffm.br
 Amrapali Zaver, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
 Ricardo Pietrobon, MD, PhD rpietro@duke.edu
 
+<!---
+Velber and Jose Eduardo, do you guys have institutional email addresses? if so, please add them above
+-->
+
+
 
 
 
@@ -269,4 +274,71 @@ Below is a full list of variables along with their class (variable type accordin
 ```
 
 
-vmGUImenu()
+A description of missing values is provided in the Figure below, where missing values are presented in yellow.
+
+```r
+library(vmv)
+tablemissing(hpv)
+```
+
+![plot of chunk unnamed-chunk-3](figure/unnamed-chunk-3.png) 
+
+```
+##       IDENTIFICAÇÃO IDADE PROFISSÃO NATURALIDADE MENARCA I.A.S.
+## 1                 1     1         1            1       1      1
+## 2                 1     1         1            1       1      1
+## 3                 1     0         1            1       1      1
+## 4                 1     0         1            1       0      0
+## Total             0   946         0            0     941    941
+##       Nº.PARCEIROS Nº.FILHOS Nº.ABORTOS GESTANTE.NO.MOMENTO
+## 1                1         1          1                   1
+## 2                1         1          1                   1
+## 3                1         1          1                   1
+## 4                0         0          1                   1
+## Total          941       941          0                   0
+##       MESES.DE.GESTAÇÃO IDADE.DA.1ª.GESTAÇÃO SEXO.ORAL SEXO.ANAL
+## 1                     1                    1         1         1
+## 2                     0                    1         1         1
+## 3                     0                    1         1         1
+## 4                     0                    0         1         1
+## Total               987                  941         0         0
+##       ANTICONCEPTIVOS TEMPO DOSAGEM DST QUAIS TRATAMENTO TABAGISMO TEMPO.1
+## 1                   1     1       1   1     1          1         1       1
+## 2                   1     1       1   1     1          1         1       1
+## 3                   1     1       1   1     1          1         1       1
+## 4                   1     1       1   1     1          1         1       1
+## Total               0     0       0   0     0          0         0       0
+##       QUANTIDADE ETILISTA TEMPO.2 CITOLOGIA.ONCÓTICA RESULTADO COLPOSCOPIA
+## 1              1        1       1                  1         1           1
+## 2              1        1       1                  1         1           1
+## 3              1        1       1                  1         1           1
+## 4              1        1       1                  1         1           1
+## Total          0        0       0                  0         0           0
+##       RESULTADO.1 HISTOPATOLOGIA RESULTADO.2 PCR.HPV RESULTADO.PCR.HPV
+## 1               1              1           0       1                 1
+## 2               1              1           0       1                 1
+## 3               1              1           0       1                 1
+## 4               1              1           0       1                 1
+## Total           0              0         998       0                 0
+##       TIPO.HPV OBSERVAÇÕES Total
+## 1            0           1    11
+## 2            0           1    41
+## 3            0           1     5
+## 4            0           1   941
+## Total      998           0   998
+```
+
+Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]
+
+
+
+```r
+source("http://www.exploredata.net/ftp/MINE.r")
+MINE("/Users/rpietro/Google Drive/R/nonpublicdata_publications/HPV/hpv.csv", 
+    "all.pairs")
+```
+
+```
+## Error: class not found
+```
+
