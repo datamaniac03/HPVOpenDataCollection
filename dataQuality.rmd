@@ -3,22 +3,34 @@
 Velber Xavier, PhD velberxavier@gmail.com
 Jose Eduardo Santana, MSc candidate jes@ic.ufal.br
 Jacson Barros, MSc Jacsonv@ffm.br
-Joao Ricardo Vissoci, PhD candidate
+Joao Ricardo Vissoci, PhD candidate jnv4@duke.edu
 Amrapali Zaveri, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
 Ricardo Pietrobon, MD, PhD rpietro@duke.edu
 
 <!---
-Velber, Joao and Jose Eduardo, do you guys have institutional email addresses? if so, please add them above
+Velber and Jose Eduardo, do you guys have institutional email addresses? if so, please add them above
 -->
 
 
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
+install.packages(c("Hmisc","ggplot2","VIM","car","psych","gmodels","vmv","qcc","GGally","gridExtra"
+                   ,"Rcmdr"), repos=getOption("http://cran.us.r-project.org"))
 library(Hmisc)
 library(ggplot2)
 library(VIM)
-hpv <- read.csv("/Users/rpietro/Google Drive/R/nonpublicdata_publications/HPV/hpv.csv")
-label(hpv$IDADE) <- "age at the time of the first consultation" 
-label(hpv$MENARCA)  <- "age at the time of the first period"
+library("car")
+library("psych")
+library("gmodels")
+library(vmv)
+library(qcc)
+library(GGally)
+library(gridExtra)
+library(Rcmdr)
+#hpv <- read.csv("/Users/rpietro/Google Drive/R/nonpublicdata_publications/HPV/hpv.csv")
+hpv <- read.csv("~/Google Drive/RoR Duke/HPV Open Collection/hpv.csv")
+attach(hpv)
+#label(hpv$IDADE) <- "age at the time of the first consultation" 
+#label(hpv$MENARCA)  <- "age at the time of the first period"
 ```
 
 <!---
@@ -30,6 +42,7 @@ The main objective of this report is to provide a 24/7 snapshop at the data qual
 
 Methodological details about the study can be found at [HPV Open Data Collection Project](site)
 
+## Data Description
 Below is a full list of variables along with their class (variable type according to the R language) and alternative responses. Most of the variable names should be intuitive, but a full dictionary is also described below:
 
 ```{r, echo=FALSE, warning=FALSE }
@@ -37,14 +50,95 @@ describe(hpv, exclude.missing=FALSE)
 ```
 
 A description of missing values is provided in the Figure below, where missing values are presented in yellow.
-```{r}
+```{r, echo=FALSE, warning=FALSE}
 library(vmv)
 tablemissing(hpv)
 ```
-Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]
 
+## Data Quality
 
-```{r}
-source("http://www.exploredata.net/ftp/MINE.r")
-MINE("/Users/rpietro/Google Drive/R/nonpublicdata_publications/HPV/hpv.csv","all.pairs")
+Below is a series of graph representations regarding data quality control. Firste set o graphs show the ... gaphs. These graphs aim to indicate ... . These graphs were created with the qcc package (link) from R Language Open Software.
+
+```{r, echo=FALSE, warning=FALSE}
+size<-c(55)
+hpv2<-merge(hpv,size)
+qcc <- qcc.groups(Agemenarche, Samples)
+par(mfrow=c(1,2))
+obj1 <- qcc(qcc[1:11,], type="xbar")
+obj2 <- qcc(Agemenarche, sizes=hpv2$y, type="p")
+```
+
+bla bla bla
+
+```{r, echo=FALSE, warning=FALSE}
+par(mfrow=c(1,2))
+cusum <- cusum(qcc[1:11,], decision.interval = 4, se.shift = 1)
+ewma <- ewma(qcc[1:11,], lambda=0.2, nsigmas=3)
+```
+
+bla bla bla
+
+```{r, echo=FALSE, warning=FALSE}
+par(mfrow=c(1,1))
+oc.curves(obj1)
+```
+
+## Data Association
+
+Figures regarding associations between variables from the HPV Open Design Data collection projetc are presente below. First set of figures show the the comparison of ... (put numeric variables) between subjects with postivie and negative polymerase values (Checar com Velber).
+
+```{r, echo=FALSE, warning=FALSE}
+age<-ggally_dotAndBox(hpv, aes(x = Age, y = polymerase, col=polymerase), boxPlot=TRUE,
+                      outlier.colour="red") + theme(legend.position = "none") + ylab("Age") +
+                        xlab("Polymerase")
+age
+menarche<-ggally_dotAndBox(hpv, aes(x = Agemenarche, y = polymerase, col=polymerase), boxPlot=TRUE,
+                      outlier.colour="red") + theme(legend.position = "none") +
+                        xlab("Polymerase") + ylab("Age of Menarche")
+menarche
+sex<-ggally_dotAndBox(hpv, aes(x = age1sex, y = polymerase, col=polymerase), boxPlot=TRUE,
+                      outlier.colour="red") + theme(legend.position = "none")+ 
+                        ylab("Age of First Sexual Intercourse")
+sex
+partners<-ggally_dotAndBox(hpv, aes(x = numbersexpartners, y = polymerase, col=polymerase), boxPlot=TRUE,
+                     outlier.colour="red") + theme(legend.position = "none")+ 
+                       ylab("Number of sexual partners")
+partners
+parity<-ggally_dotAndBox(hpv, aes(x = parity, y = polymerase, col=polymerase), boxPlot=TRUE,
+                       outlier.colour="red") + theme(legend.position = "none")+ 
+                         ylab("Parity")
+parity
+agefirstbirth<-ggally_dotAndBox(hpv, aes(x = agefirstbirth, y = polymerase, col=polymerase), boxPlot=TRUE,
+                         outlier.colour="red") + theme(legend.position = "none")+ 
+                           ylab("Age of first birth")
+agefirstbirth
+
+grid.arrange(age,menarche,sex,partners,parity,agefirstbirth)
+
+```
+
+Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]. This application was used to explore the associations between variables inside the dataset. Variables with highe values of linear relation (MIC-definition)  as well as the analysis of non-lnear associations (MAS - Definition) are shown in figures below.
+
+## Problem with MINE, need to add the data set to the working directory. 
+## Any ideia how we can bring the results from mine into the .rmd file as a table?
+```{r,echo=FALSE, warning=FALSE}
+source("MINE.r")
+MINE("hpv.csv","all.pairs",0,5)
+
+scatterplot(parity ~ Age | polymerase, data=hpv, 
+            xlab="Age", ylab="Parity", 
+            main="", 
+            labels=row.names(hpv))
+
+plot1<-qplot(numbersexpartners, age1sex, data=hpv) +
+  geom_smooth()
+
+plot2<-qplot(agefirstbirth, parity, data=hpv) +
+  geom_smooth(se=FALSE)
+
+grid.arrange(plot1,plot2,nrow=1,ncol=2)
+
+# Another Spinning 3d Scatterplot
+scatter3d(hpv$Age, hpv$agefirstbirth, hpv$age1sex)
+
 ```
