@@ -63,24 +63,74 @@ tablemissing(hpv)
 Below is a series of graph representations regarding data quality control. Firste set o graphs show the ... gaphs. These graphs aim to indicate ... . These graphs were created with the qcc package (link) from R Language Open Software.
 
 ```{r, echo=FALSE, warning=FALSE}
-size<-c(55)
-hpv2<-merge(hpv,size)
+par(mfrow=c(1,2), mar=c(5,5,3,5))
 qcc <- qcc.groups(Agemenarche, Samples)
-obj1 <- qcc(qcc[1:11,], type="xbar")
-obj2 <- qcc(Agemenarche, sizes=hpv2$y, type="p")
+obj1x <- qcc(qcc[1:11,], type="xbar",data.name="Age of Menarche", add.stats=FALSE,
+             ylab="Avarage", xlab="Groups of Observations")
+obj1s <- qcc(qcc[1:11,], type="S", data.name="Age of Menarche", add.stats=FALSE,
+             ylab="St. Deviation", xlab="Groups of Observations")
 ```
 
 bla bla bla
 
 ```{r, echo=FALSE, warning=FALSE}
-cusum <- cusum(qcc[1:11,], decision.interval = 4, se.shift = 1)
-ewma <- ewma(qcc[1:11,], lambda=0.2, nsigmas=3)
+par(mfrow=c(1,2), mar=c(5,5,3,5))
+cusum <- cusum(qcc[1:11,], decision.interval = 4, se.shift = 1,  data.name="Age of Menarche",add.stats=FALSE)
+ewma <- ewma(qcc[1:11,], lambda=0.2, nsigmas=3,  data.name="Age of Menarche",add.stats=FALSE)
 ```
 
 bla bla bla
 
 ```{r, echo=FALSE, warning=FALSE}
-oc.curves(obj1)
+par(mfrow=c(1,2), mar=c(5,5,3,5))
+qcc4 <- qcc.groups(hpv$parity, Samples)
+obj2x <- qcc(qcc4[1:11,], type="xbar",data.name="Parity", add.stats=FALSE,
+             ylab="Avarage", xlab="Groups of Observations")
+obj2s <- qcc(qcc4[1:11,], type="S", data.name="Parity", add.stats=FALSE,
+             ylab="St. Deviation", xlab="Groups of Observations")
+```
+
+bla bla bla
+
+```{r, echo=FALSE, warning=FALSE}
+par(mfrow=c(1,2), mar=c(5,5,3,5))
+cusum <- cusum(qcc4[1:11,], decision.interval = 4, se.shift = 1,data.name="Parity",add.stats=FALSE)
+ewma <- ewma(qcc4[1:11,], lambda=0.2, nsigmas=3,data.name="Parity",add.stats=FALSE)
+```
+
+bla bla bla
+
+
+```{r, echo=FALSE, warning=FALSE}
+par(mfrow=c(1,2))
+oc.curves(obj1x)
+oc.curves(obj2x)
+```
+
+bla bla bla
+
+```{r, echo=FALSE, warning=FALSE}
+par(mfrow=c(1,2), mar=c(5,5,3,5))
+size<-c(5)
+D<-c(0,0,1,0,1,1,0,1,0,0,0)
+hpv2<-merge(size,D)
+qcc2 <- qcc.groups(polymerase, Samples)
+obj2 <- qcc(hpv2$y, sizes=hpv2$x, type="p",data.name="Polymerase", add.stats=FALSE,
+             ylab="Proportion of Positive", xlab="Groups of Observations")
+qcc3 <- qcc.groups(pregnancy, Samples)
+size<-c(5)
+D<-c(0,1,1,2,1,1,2,1,2,0,0)
+hpv3<-merge(size,D)
+obj3 <- qcc(hpv3$y, sizes=hpv3$x, type="p",data.name="Pregnancy", add.stats=FALSE,
+             ylab="Proportion of Positive", xlab="Groups of Observations")
+```
+
+bla bla bla
+
+```{r, echo=FALSE, warning=FALSE}
+par(mfrow=c(1,2))
+oc.curves(obj2)
+oc.curves(obj3)
 ```
 
 ## Data Association
@@ -91,28 +141,21 @@ Figures regarding associations between variables from the HPV Open Design Data c
 age<-ggally_dotAndBox(hpv, aes(x = Age, y = polymerase, col=polymerase), boxPlot=TRUE,
                       outlier.colour="red") + theme(legend.position = "none") + ylab("Age") +
                         xlab("Polymerase")
-age
 menarche<-ggally_dotAndBox(hpv, aes(x = Agemenarche, y = polymerase, col=polymerase), boxPlot=TRUE,
                       outlier.colour="red") + theme(legend.position = "none") +
                         xlab("Polymerase") + ylab("Age of Menarche")
-menarche
 sex<-ggally_dotAndBox(hpv, aes(x = age1sex, y = polymerase, col=polymerase), boxPlot=TRUE,
                       outlier.colour="red") + theme(legend.position = "none")+ 
                         ylab("Age of First Sexual Intercourse")
-sex
 partners<-ggally_dotAndBox(hpv, aes(x = numbersexpartners, y = polymerase, col=polymerase), boxPlot=TRUE,
                      outlier.colour="red") + theme(legend.position = "none")+ 
                        ylab("Number of sexual partners")
-partners
 parity<-ggally_dotAndBox(hpv, aes(x = parity, y = polymerase, col=polymerase), boxPlot=TRUE,
                        outlier.colour="red") + theme(legend.position = "none")+ 
                          ylab("Parity")
-parity
 agefirstbirth<-ggally_dotAndBox(hpv, aes(x = agefirstbirth, y = polymerase, col=polymerase), boxPlot=TRUE,
                          outlier.colour="red") + theme(legend.position = "none")+ 
                            ylab("Age of first birth")
-agefirstbirth
-
 grid.arrange(age,menarche,sex,partners,parity,agefirstbirth)
 
 ```
@@ -121,10 +164,12 @@ Below is an application of the MINE (maximal Information-based Nonparametric Exp
 
 ## Problem with MINE, need to add the data set to the working directory. 
 ## Any ideia how we can bring the results from mine into the .rmd file as a table?
-```{r,echo=FALSE, warning=FALSE}
+```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 source("MINE.r")
 MINE("hpv.csv","all.pairs",0,5)
+```
 
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 scatterplot(parity ~ Age | polymerase, data=hpv, 
             xlab="Age", ylab="Parity", 
             main="", 

@@ -97,12 +97,12 @@ A description of missing values is provided in the Figure below, where missing v
 
 Below is a series of graph representations regarding data quality control. Firste set o graphs show the ... gaphs. These graphs aim to indicate ... . These graphs were created with the qcc package (link) from R Language Open Software.
 
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-41.png) ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-42.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
 
 
 bla bla bla
 
-![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-51.png) ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-52.png) 
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-5.png) 
 
 
 bla bla bla
@@ -110,11 +110,32 @@ bla bla bla
 ![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
 
+bla bla bla
+
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-7.png) 
+
+
+bla bla bla
+
+
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-8.png) 
+
+
+bla bla bla
+
+![plot of chunk unnamed-chunk-9](figure/unnamed-chunk-9.png) 
+
+
+bla bla bla
+
+![plot of chunk unnamed-chunk-10](figure/unnamed-chunk-10.png) 
+
+
 ## Data Association
 
 Figures regarding associations between variables from the HPV Open Design Data collection projetc are presente below. First set of figures show the the comparison of ... (put numeric variables) between subjects with postivie and negative polymerase values (Checar com Velber).
 
-![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-71.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-72.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-73.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-74.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-75.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-76.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-77.png) 
+![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11.png) 
 
 
 Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]. This application was used to explore the associations between variables inside the dataset. Variables with highe values of linear relation (MIC-definition)  as well as the analysis of non-lnear associations (MAS - Definition) are shown in figures below.
@@ -123,56 +144,9 @@ Below is an application of the MINE (maximal Information-based Nonparametric Exp
 ## Any ideia how we can bring the results from mine into the .rmd file as a table?
 
 ```
-## Attaching package: 'rJava'
-```
-
-```
-## The following object(s) are masked from 'package:RCurl':
-## 
-## clone
-```
-
-```
-## **********************************************************
-## MINE version 1.0.1d
-## Copyright 2011 by David Reshef and Yakir Reshef.
-## 
-## This application is licensed under a Creative Commons
-## Attribution-NonCommercial-NoDerivs 3.0 Unported License.
-## See
-## http://creativecommons.org/licenses/by-nc-nd/3.0/ for
-## more information.
-## **********************************************************
-## 
-## 
-## input file = hpv.csv
-## analysis style = allpairs
-## results file name = 'hpv.csv,allpairs,cv=0.0,B=n^0.6,Results.csv'
-## print status frequency = every 100 variable pairs
-## status file name = 'hpv.csv,allpairs,cv=0.0,B=n^0.6,Status.txt'
-## alpha = 0.6
-## numClumpsFactor = 15.0
-## debug level = 0
-## required common values fraction = 0.0
-## garbage collection forced every 2147483647 variable pairs
-## reading in dataset...
-```
-
-```
 ## Error: java.io.FileNotFoundException: hpv.csv (No such file or directory)
 ```
 
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-81.png) 
 
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using
-## loess. Use 'method = x' to change the smoothing method.
-```
-
-```
-## geom_smooth: method="auto" and size of largest group is <1000, so using
-## loess. Use 'method = x' to change the smoothing method.
-```
-
-![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-82.png) 
+![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-131.png) ![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-132.png) 
 
