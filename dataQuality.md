@@ -36,7 +36,44 @@ Below is a full list of variables along with their class (variable type accordin
 
 
 ```
-## Error: unused argument(s) (exclude.missing = FALSE)
+##                   var  n  mean    sd median trimmed   mad min max range
+## Age                 1 57 35.61 14.56     35   34.79 16.31  13  70    57
+## data*               2 57  5.42  2.20      5    5.43  1.48   1   9     8
+## Samples             3 57  6.21  3.33      6    6.21  4.45   1  12    11
+## Agemenarche         4 57 12.75  1.70     13   12.77  1.48   7  16     9
+## age1sex             5 57 17.39  3.64     17   16.94  1.48  12  32    20
+## numbersexpartners   6 57  3.70  5.63      3    2.68  1.48   1  40    39
+## parity              7 57  2.25  2.42      1    1.83  1.48   0  12    12
+## abortion1           8 57  0.09  0.39      0    0.00  0.00   0   2     2
+## abortion2           9 57  0.00  0.00      0    0.00  0.00   0   0     0
+## pregnancy*         10 57  1.19  0.40      1    1.13  0.00   1   2     1
+## agefirstbirth      11 57 18.26  7.97     19   18.74  4.45   0  37    37
+## oralsex*           12 57  1.26  0.44      1    1.21  0.00   1   2     1
+## anasex*            13 57  1.18  0.38      1    1.11  0.00   1   2     1
+## contraceptive*     14 57  1.04  0.19      1    1.00  0.00   1   2     1
+## STD*               15 57  2.00  0.33      2    2.00  0.00   1   3     2
+## smoke*             16 57  1.11  0.31      1    1.02  0.00   1   2     1
+## alcohol*           17 57  1.11  0.31      1    1.02  0.00   1   2     1
+## polymerase*        18 57  1.09  0.29      1    1.00  0.00   1   2     1
+##                    skew kurtosis   se
+## Age                0.40    -0.70 1.93
+## data*              0.32    -0.75 0.29
+## Samples            0.02    -1.25 0.44
+## Agemenarche       -0.43     0.92 0.23
+## age1sex            1.64     3.66 0.48
+## numbersexpartners  5.09    28.46 0.75
+## parity             2.13     5.27 0.32
+## abortion1          4.32    17.60 0.05
+## abortion2           NaN      NaN 0.00
+## pregnancy*         1.52     0.30 0.05
+## agefirstbirth     -0.65     1.04 1.06
+## oralsex*           1.05    -0.92 0.06
+## anasex*            1.66     0.78 0.05
+## contraceptive*     4.92    22.61 0.02
+## STD*               0.00     6.17 0.04
+## smoke*             2.51     4.35 0.04
+## alcohol*           2.51     4.35 0.04
+## polymerase*        2.84     6.17 0.04
 ```
 
 
@@ -48,11 +85,11 @@ A description of missing values is provided in the Figure below, where missing v
 ## 1       1    1       1           1       1                 1      1
 ## Total   0    0       0           0       0                 0      0
 ##       abortion1 abortion2 pregnancy agefirstbirth oralsex anasex
-## 1             1         1         1             0       0      0
-## Total         0         0         0             1       1      1
+## 1             1         1         1             1       1      1
+## Total         0         0         0             0       0      0
 ##       contraceptive STD smoke alcohol polymerase Total
-## 1                 0   0     0       0          0     1
-## Total             1   1     1       1          1     1
+## 1                 1   1     1       1          1    57
+## Total             0   0     0       0          0    57
 ```
 
 
@@ -60,72 +97,40 @@ A description of missing values is provided in the Figure below, where missing v
 
 Below is a series of graph representations regarding data quality control. Firste set o graphs show the ... gaphs. These graphs aim to indicate ... . These graphs were created with the qcc package (link) from R Language Open Software.
 
-
-```
-## Error: subscript out of bounds
-```
-
-![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-4.png) 
+![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-41.png) ![plot of chunk unnamed-chunk-4](figure/unnamed-chunk-42.png) 
 
 
 bla bla bla
 
-
-```
-## Error: subscript out of bounds
-```
-
-```
-## Error: subscript out of bounds
-```
+![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-51.png) ![plot of chunk unnamed-chunk-5](figure/unnamed-chunk-52.png) 
 
 
 bla bla bla
 
-
-```
-## Error: object 'obj1' not found
-```
+![plot of chunk unnamed-chunk-6](figure/unnamed-chunk-6.png) 
 
 
 ## Data Association
 
 Figures regarding associations between variables from the HPV Open Design Data collection projetc are presente below. First set of figures show the the comparison of ... (put numeric variables) between subjects with postivie and negative polymerase values (Checar com Velber).
 
-
-```
-## Error: argument is of length zero
-```
-
-```
-## Error: argument is of length zero
-```
-
-```
-## Error: argument is of length zero
-```
-
-```
-## Error: argument is of length zero
-```
-
-```
-## Error: argument is of length zero
-```
-
-```
-## Error: argument is of length zero
-```
-
-```
-## Error: argument is of length zero
-```
+![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-71.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-72.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-73.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-74.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-75.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-76.png) ![plot of chunk unnamed-chunk-7](figure/unnamed-chunk-77.png) 
 
 
 Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]. This application was used to explore the associations between variables inside the dataset. Variables with highe values of linear relation (MIC-definition)  as well as the analysis of non-lnear associations (MAS - Definition) are shown in figures below.
 
 ## Problem with MINE, need to add the data set to the working directory. 
 ## Any ideia how we can bring the results from mine into the .rmd file as a table?
+
+```
+## Attaching package: 'rJava'
+```
+
+```
+## The following object(s) are masked from 'package:RCurl':
+## 
+## clone
+```
 
 ```
 ## **********************************************************
@@ -157,9 +162,7 @@ Below is an application of the MINE (maximal Information-based Nonparametric Exp
 ## Error: java.io.FileNotFoundException: hpv.csv (No such file or directory)
 ```
 
-```
-## Error: need finite 'xlim' values
-```
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-81.png) 
 
 ```
 ## geom_smooth: method="auto" and size of largest group is <1000, so using
@@ -171,15 +174,5 @@ Below is an application of the MINE (maximal Information-based Nonparametric Exp
 ## loess. Use 'method = x' to change the smoothing method.
 ```
 
-```
-## Error: missing value where TRUE/FALSE needed
-```
-
-```
-## Loading required package: rgl
-```
-
-```
-## Error: rgl package missing
-```
+![plot of chunk unnamed-chunk-8](figure/unnamed-chunk-82.png) 
 

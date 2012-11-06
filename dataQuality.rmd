@@ -14,7 +14,7 @@ Velber and Jose Eduardo, do you guys have institutional email addresses? if so, 
 
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 install.packages(c("Hmisc","ggplot2","VIM","car","psych","gmodels","vmv","qcc","GGally","gridExtra"
-                   ,"Rcmdr"), repos=getOption("http://cran.us.r-project.org"))
+                   ,"RCurl"), repos=getOption("http://cran.us.r-project.org"))
 library(Hmisc)
 library(ggplot2)
 library(VIM)
@@ -25,9 +25,12 @@ library(vmv)
 library(qcc)
 library(GGally)
 library(gridExtra)
-library(Rcmdr)
+library(RCurl)
 #hpv <- read.csv("/Users/rpietro/Google Drive/R/nonpublicdata_publications/HPV/hpv.csv")
-hpv <- read.csv("~/Google Drive/RoR Duke/HPV Open Collection/hpv.csv")
+#hpv <- read.csv("~/Google Drive/RoR Duke/HPV Open Collection/hpv.csv")
+data <- getURL("https://docs.google.com/spreadsheet/pub?key=0AoTReYGK49h_dEp4WEVha3FiLXZqc3QtVEF5M0RGWEE&single=true&gid=0&output=csv"
+               ,ssl.verifypeer = FALSE)
+hpv<-read.csv(textConnection(data))
 attach(hpv)
 #label(hpv$IDADE) <- "age at the time of the first consultation" 
 #label(hpv$MENARCA)  <- "age at the time of the first period"
@@ -46,7 +49,7 @@ Methodological details about the study can be found at [HPV Open Data Collection
 Below is a full list of variables along with their class (variable type according to the R language) and alternative responses. Most of the variable names should be intuitive, but a full dictionary is also described below:
 
 ```{r, echo=FALSE, warning=FALSE }
-describe(hpv, exclude.missing=FALSE)
+describe(hpv)
 ```
 
 A description of missing values is provided in the Figure below, where missing values are presented in yellow.
@@ -63,7 +66,6 @@ Below is a series of graph representations regarding data quality control. First
 size<-c(55)
 hpv2<-merge(hpv,size)
 qcc <- qcc.groups(Agemenarche, Samples)
-par(mfrow=c(1,2))
 obj1 <- qcc(qcc[1:11,], type="xbar")
 obj2 <- qcc(Agemenarche, sizes=hpv2$y, type="p")
 ```
@@ -71,7 +73,6 @@ obj2 <- qcc(Agemenarche, sizes=hpv2$y, type="p")
 bla bla bla
 
 ```{r, echo=FALSE, warning=FALSE}
-par(mfrow=c(1,2))
 cusum <- cusum(qcc[1:11,], decision.interval = 4, se.shift = 1)
 ewma <- ewma(qcc[1:11,], lambda=0.2, nsigmas=3)
 ```
@@ -79,7 +80,6 @@ ewma <- ewma(qcc[1:11,], lambda=0.2, nsigmas=3)
 bla bla bla
 
 ```{r, echo=FALSE, warning=FALSE}
-par(mfrow=c(1,1))
 oc.curves(obj1)
 ```
 
@@ -137,8 +137,4 @@ plot2<-qplot(agefirstbirth, parity, data=hpv) +
   geom_smooth(se=FALSE)
 
 grid.arrange(plot1,plot2,nrow=1,ncol=2)
-
-# Another Spinning 3d Scatterplot
-scatter3d(hpv$Age, hpv$agefirstbirth, hpv$age1sex)
-
 ```
