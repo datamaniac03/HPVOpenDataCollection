@@ -14,8 +14,9 @@ Velber and Jose Eduardo, do you guys have institutional email addresses? if so, 
 
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 install.packages(c("Hmisc","ggplot2","VIM","car","psych","gmodels","vmv","qcc","GGally","gridExtra"
-                   ,"RCurl"), repos=getOption("http://cran.us.r-project.org"))
+                   ,"RCurl","nortest"), repos=getOption("http://cran.us.r-project.org"))
 library(Hmisc)
+library(nortest)
 library(ggplot2)
 library(VIM)
 library("car")
@@ -137,6 +138,15 @@ oc.curves(obj3)
 
 Figures regarding associations between variables from the HPV Open Design Data collection projetc are presente below. First set of figures show the the comparison of ... (put numeric variables) between subjects with postivie and negative polymerase values (Checar com Velber).
 
+```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
+#Non-parametric group comparison
+wilcox.test(Age~polymerase, paired=FALSE)
+wilcox.test(Agemenarche~polymerase, paired=FALSE)
+wilcox.test(numbersexpartners~polymerase, paired=FALSE)
+wilcox.test(parity~polymerase, paired=FALSE)
+wilcox.test(agefirstbirth~polymerase, paired=FALSE)
+```
+
 ```{r, echo=FALSE, warning=FALSE}
 age<-ggally_dotAndBox(hpv, aes(x = Age, y = polymerase, col=polymerase), boxPlot=TRUE,
                       outlier.colour="red") + theme(legend.position = "none") + ylab("Age") +
@@ -167,19 +177,38 @@ Below is an application of the MINE (maximal Information-based Nonparametric Exp
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 source("MINE.r")
 MINE("hpv.csv","all.pairs",0,5)
+minedata <- read.csv("~/Google Drive/RoR Duke/HPV Open Collection/hpv.csv,allpairs,cv=0.0,B=n^0.6,Results.csv")
+attach(minedata)
+Mine<-data.frame(X.var,Y.var,MIC..strength.,MIC.p.2..nonlinearity.,MAS..non.monotonicity., Linear.regression..p.)
 ```
 
+blablalba
+
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
+head(Mine)
 scatterplot(parity ~ Age | polymerase, data=hpv, 
             xlab="Age", ylab="Parity", 
             main="", 
             labels=row.names(hpv))
+scatterplot(agefirstbirth ~ Age | polymerase, data=hpv, 
+            xlab="Age", ylab="Age of First Birth", 
+            main="", 
+            labels=row.names(hpv))
+scatterplot(parity ~ agefirstbirth | polymerase, data=hpv, 
+            xlab="Age of First Birth", ylab="Parity", 
+            main="", 
+            labels=row.names(hpv))
+scatterplot(age1sex ~ agefirstbirth | polymerase, data=hpv, 
+            xlab="Age of First Birth", ylab="Age of First Sexual Intercourse", 
+            main="", 
+            labels=row.names(hpv))
+scatterplot(age1sex ~ Age | polymerase, data=hpv, 
+            xlab="Age", ylab="Age of First Sexual Intercourse", 
+            main="", 
+            labels=row.names(hpv))
+scatterplot(age1sex ~ numbersexpartners | polymerase, data=hpv, 
+            xlab="Number of Sexual Partners", ylab="Age of First Sexual Intercourse", 
+            main="", 
+            labels=row.names(hpv))
 
-plot1<-qplot(numbersexpartners, age1sex, data=hpv) +
-  geom_smooth()
-
-plot2<-qplot(agefirstbirth, parity, data=hpv) +
-  geom_smooth(se=FALSE)
-
-grid.arrange(plot1,plot2,nrow=1,ncol=2)
 ```

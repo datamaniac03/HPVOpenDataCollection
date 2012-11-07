@@ -135,7 +135,10 @@ bla bla bla
 
 Figures regarding associations between variables from the HPV Open Design Data collection projetc are presente below. First set of figures show the the comparison of ... (put numeric variables) between subjects with postivie and negative polymerase values (Checar com Velber).
 
-![plot of chunk unnamed-chunk-11](figure/unnamed-chunk-11.png) 
+
+
+
+![plot of chunk unnamed-chunk-12](figure/unnamed-chunk-12.png) 
 
 
 Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]. This application was used to explore the associations between variables inside the dataset. Variables with highe values of linear relation (MIC-definition)  as well as the analysis of non-lnear associations (MAS - Definition) are shown in figures below.
@@ -148,5 +151,25 @@ Below is an application of the MINE (maximal Information-based Nonparametric Exp
 ```
 
 
-![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-131.png) ![plot of chunk unnamed-chunk-13](figure/unnamed-chunk-132.png) 
+blablalba
+
+
+```
+##               X.var   Y.var MIC..strength. MIC.p.2..nonlinearity.
+## 1            parity     Age         0.5537                 0.2507
+## 2     agefirstbirth  parity         0.4293                 0.4119
+## 3     agefirstbirth age1sex         0.3932                 0.2541
+## 4     agefirstbirth     Age         0.3391                 0.2593
+## 5           age1sex     Age         0.2751                 0.1112
+## 6 numbersexpartners age1sex         0.2410                 0.1851
+##   MAS..non.monotonicity. Linear.regression..p.
+## 1                0.12691                0.5505
+## 2                0.18272                0.1317
+## 3                0.07957                0.3729
+## 4                0.09785                0.2824
+## 5                0.04975                0.4049
+## 6                0.08022               -0.2364
+```
+
+![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-141.png) ![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-142.png) ![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-143.png) ![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-144.png) ![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-145.png) ![plot of chunk unnamed-chunk-14](figure/unnamed-chunk-146.png) 
 
