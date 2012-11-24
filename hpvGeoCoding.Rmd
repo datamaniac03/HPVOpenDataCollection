@@ -1,0 +1,57 @@
+Apply geocoding in R with GeoPlot and GoogleVis
+========================================================
+
+```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
+rm(list = ls())
+ls()
+
+library(geoPlot)
+library(googleVis)
+library(RCurl)
+library(RMySQL)
+```
+
+Importing data and Recoding
+
+```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
+
+con <- dbConnect(MySQL(), user="jacson_barros", password="p8z77-v", dbname="hpvproj", host="ec2-50-19-4-203.compute-1.amazonaws.com")
+
+hpvData <- dbReadTable(con, "patient_registries")
+
+dbDisconnect(con)
+```
+
+Geocoding: using the package geoPlot to get the latitude and longitude through zip code of patients
+
+```{r}
+geoLoc <- data.frame(zip=c(1:nrow(hpvData)) , lat=c(1:nrow(hpvData)),long=c(1:nrow(hpvData)) )
+
+for ( i in 1:nrow(hpvData))
+{
+  
+  hpvGeo <- geoAddress(c("","",as.character(hpvData$city[i]),as.character(hpvData$state[i]),as.character(hpvData$zip_code[i]),"BR"))
+  
+  geoLoc$zip[i] <- hpvGeo$address
+  geoLoc$lat[i] <- hpvGeo$latitude
+  geoLoc$long[i] <- hpvGeo$longitude
+  
+}
+
+```
+
+
+You can also embed plots, for example:
+
+```{r gvisExample, results='asis', echo=FALSE}
+
+## Criado um dataframe para ser utilizado pela função de plotagem gráfica do Google.
+
+dfMap<-data.frame(label=geoLoc[,c("zip")], latlong=paste(geoLoc[,c(("lat"))], geoLoc[,c(("long"))],sep=":"))
+
+M2 <- gvisMap(dfMap, "latlong", "label",
+              options=list(showTip=TRUE, mapType='normal',
+                           enableScrollWheel=TRUE,zoomLevel=15))
+print(M2,"chart")
+```
+
