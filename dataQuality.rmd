@@ -14,7 +14,7 @@ Velber and Jose Eduardo, do you guys have institutional email addresses? if so, 
 
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 install.packages(c("Hmisc","ggplot2","VIM","car","psych","gmodels","vmv","qcc","GGally","gridExtra"
-                   ,"RCurl","nortest"), repos=getOption("http://cran.us.r-project.org"))
+                   ,"RCurl","nortest"), repos=c("http://cran.us.r-project.org"), type=c("both"))
 library(Hmisc)
 library(nortest)
 library(ggplot2)
@@ -50,7 +50,7 @@ Methodological details about the study can be found at [HPV Open Data Collection
 Below is a full list of variables along with their class (variable type according to the R language) and alternative responses. Most of the variable names should be intuitive, but a full dictionary is also described below:
 
 ```{r, echo=FALSE, warning=FALSE }
-describe(hpv)
+Hmisc::describe(hpv)
 ```
 
 A description of missing values is provided in the Figure below, where missing values are presented in yellow.

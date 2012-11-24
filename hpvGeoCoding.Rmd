@@ -5,6 +5,11 @@ Apply geocoding in R with GeoPlot and GoogleVis
 rm(list = ls())
 ls()
 
+install.packages("geoPlot",repos=c("http://cran.us.r-project.org"), type=c("both"))
+install.packages("googleVis",repos=c("http://cran.us.r-project.org"), type=c("both"))
+install.packages("RCurl",repos=c("http://cran.us.r-project.org"), type=c("both"))
+install.packages("RMySQL",repos=c("http://cran.us.r-project.org"), type=c("both"))
+
 library(geoPlot)
 library(googleVis)
 library(RCurl)

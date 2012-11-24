@@ -13,13 +13,6 @@ Velber and Jose Eduardo, do you guys have institutional email addresses? if so, 
 
 
 
-```
-## Error: file 'Hmisc' is not an OS X binary package
-```
-
-```
-## Error: package 'e1071' could not be loaded
-```
 
 
 <!---
