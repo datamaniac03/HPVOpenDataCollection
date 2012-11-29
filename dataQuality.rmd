@@ -7,11 +7,6 @@ Joao Ricardo Vissoci, PhD candidate jnv4@duke.edu
 Amrapali Zaveri, MSc, PhD candidate zaveri@informatik.uni-leipzig.de
 Ricardo Pietrobon, MD, PhD rpietro@duke.edu
 
-<!---
-Velber and Jose Eduardo, do you guys have institutional email addresses? if so, please add them above
--->
-
-
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 install.packages(c("Hmisc","ggplot2","VIM","car","psych","gmodels","vmv","qcc","GGally","gridExtra"
                    ,"RCurl","nortest"), repos=c("http://cran.us.r-project.org"), type=c("both"))
@@ -37,10 +32,6 @@ attach(hpv)
 #label(hpv$MENARCA)  <- "age at the time of the first period"
 ```
 
-<!---
-Velber, please take the previous line where it says label and then create labels for each one of the variables you have in your data set. please write them in simple Portuguese and then convert them to English using Google translate. please talk with Jose Eduardo if you have any questions
--->
-
 ## Introduction
 The main objective of this report is to provide a 24/7 snapshop at the data quality behind the HPV Open Data Collection Project. This includes not only the original data set collected under Dr. Xavier in Maceio, Brazil, but also any additional data sets brought in from other registries, prospective studies, as well as Linked Open Data sources.
 
@@ -54,14 +45,18 @@ Hmisc::describe(hpv)
 ```
 
 A description of missing values is provided in the Figure below, where missing values are presented in yellow.
+
 ```{r, echo=FALSE, warning=FALSE}
 library(vmv)
 tablemissing(hpv)
+#matrixplot(table1)
+#parcoordMiss(table1)
+#pbox(table1)
 ```
 
 ## Data Quality
 
-Below is a series of graph representations regarding data quality control. Firste set o graphs show the ... gaphs. These graphs aim to indicate ... . These graphs were created with the qcc package (link) from R Language Open Software.
+Below is a series of graph representations regarding data quality control. Firste set o graphs allow to evaluate trends, cycles, and shifts as data quality indicator. These graphs were created with the qcc package (http://cran.r-project.org/web/packages/qcc/index.html) from R Language Open Software.
 
 ```{r, echo=FALSE, warning=FALSE}
 par(mfrow=c(1,2), mar=c(5,5,3,5))
@@ -72,15 +67,13 @@ obj1s <- qcc(qcc[1:11,], type="S", data.name="Age of Menarche", add.stats=FALSE,
              ylab="St. Deviation", xlab="Groups of Observations")
 ```
 
-bla bla bla
-
 ```{r, echo=FALSE, warning=FALSE}
 par(mfrow=c(1,2), mar=c(5,5,3,5))
 cusum <- cusum(qcc[1:11,], decision.interval = 4, se.shift = 1,  data.name="Age of Menarche",add.stats=FALSE)
 ewma <- ewma(qcc[1:11,], lambda=0.2, nsigmas=3,  data.name="Age of Menarche",add.stats=FALSE)
 ```
 
-bla bla bla
+Another example using a different continuous variable (Parity).
 
 ```{r, echo=FALSE, warning=FALSE}
 par(mfrow=c(1,2), mar=c(5,5,3,5))
@@ -91,16 +84,13 @@ obj2s <- qcc(qcc4[1:11,], type="S", data.name="Parity", add.stats=FALSE,
              ylab="St. Deviation", xlab="Groups of Observations")
 ```
 
-bla bla bla
-
 ```{r, echo=FALSE, warning=FALSE}
 par(mfrow=c(1,2), mar=c(5,5,3,5))
 cusum <- cusum(qcc4[1:11,], decision.interval = 4, se.shift = 1,data.name="Parity",add.stats=FALSE)
 ewma <- ewma(qcc4[1:11,], lambda=0.2, nsigmas=3,data.name="Parity",add.stats=FALSE)
 ```
 
-bla bla bla
-
+Also, OC Curves allow to evaluete power of the data quality control process.
 
 ```{r, echo=FALSE, warning=FALSE}
 par(mfrow=c(1,2))
@@ -108,7 +98,7 @@ oc.curves(obj1x)
 oc.curves(obj2x)
 ```
 
-bla bla bla
+For categorical variables (e.g. positive polymerase test or pregnancy), we used data quality control charts for proportions over a group of subjects.
 
 ```{r, echo=FALSE, warning=FALSE}
 par(mfrow=c(1,2), mar=c(5,5,3,5))
@@ -126,8 +116,6 @@ obj3 <- qcc(hpv3$y, sizes=hpv3$x, type="p",data.name="Pregnancy", add.stats=FALS
              ylab="Proportion of Positive", xlab="Groups of Observations")
 ```
 
-bla bla bla
-
 ```{r, echo=FALSE, warning=FALSE}
 par(mfrow=c(1,2))
 oc.curves(obj2)
@@ -136,7 +124,7 @@ oc.curves(obj3)
 
 ## Data Association
 
-Figures regarding associations between variables from the HPV Open Design Data collection projetc are presente below. First set of figures show the the comparison of ... (put numeric variables) between subjects with postivie and negative polymerase values (Checar com Velber).
+Figures regarding associations between variables from the HPV Open Design Data collection projetc are presente below. First set of figures show the the comparison of numeric variables from our dataset between subjects with postivie and negative polymerase values.
 
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
 #Non-parametric group comparison
@@ -172,9 +160,8 @@ grid.arrange(age,menarche,sex,partners,parity,agefirstbirth)
 
 Below is an application of the MINE (maximal Information-based Nonparametric Exploration) algorithm from the Science article (Detecting Novel Association in Large Data Sets)[http://www.sciencemag.org/content/334/6062/1518.abstract?ijkey=cRCIlh2G7AjiA&keytype=ref&siteid=sci]. See also (http://www.exploredata.net/)[http://www.exploredata.net/]. This application was used to explore the associations between variables inside the dataset. Variables with highe values of linear relation (MIC-definition)  as well as the analysis of non-lnear associations (MAS - Definition) are shown in figures below.
 
-## Problem with MINE, need to add the data set to the working directory. 
-## Any ideia how we can bring the results from mine into the .rmd file as a table?
 ```{r, echo=FALSE, results='hide', warning=FALSE, message=FALSE }
+#Files MINE.r and MINE.jav must be in the same directory as the workspace so the analysis can #run. See http://www.exploredata.net/ for more information
 source("MINE.r")
 MINE("hpv.csv","all.pairs",0,5)
 minedata <- read.csv("~/Google Drive/RoR Duke/HPV Open Collection/hpv.csv,allpairs,cv=0.0,B=n^0.6,Results.csv")
@@ -182,10 +169,13 @@ attach(minedata)
 Mine<-data.frame(X.var,Y.var,MIC..strength.,MIC.p.2..nonlinearity.,MAS..non.monotonicity., Linear.regression..p.)
 ```
 
-blablalba
-
 ```{r, echo=FALSE, warning=FALSE, message=FALSE}
 head(Mine)
+```
+
+After analyzing MINE results, we took the higher MIC and non-linear relations indicatores to plot in scatter plots.
+
+```{r, echo=FALSE, warning=FALSE, message=FALSE}
 scatterplot(parity ~ Age | polymerase, data=hpv, 
             xlab="Age", ylab="Parity", 
             main="", 
@@ -210,5 +200,4 @@ scatterplot(age1sex ~ numbersexpartners | polymerase, data=hpv,
             xlab="Number of Sexual Partners", ylab="Age of First Sexual Intercourse", 
             main="", 
             labels=row.names(hpv))
-
 ```
